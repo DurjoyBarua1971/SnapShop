@@ -1,18 +1,19 @@
-import { Outlet } from 'react-router-dom'
-import './App.css'
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import { AuthProvider } from "./context/auth-context";
+import Navbar from "./components/NavBar";
 
 function App() {
-
-
   return (
-    <div className='bg-amber-200 min-h-screen flex flex-col items-center justify-center'>
-      <h1 className='font-poppins'>I am Poppins Font</h1>
-      <h2 className='font-inter'>I am Inter Font</h2>
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  )
+    <AuthProvider>
+      <div className="min-h-screen bg-gray-50 font-inter">
+        <Navbar />
+        <main className="container mx-auto px-4 py-6">
+          <Outlet />
+        </main>
+      </div>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
