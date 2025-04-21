@@ -1,12 +1,23 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
+import Loader from "./Loader";
+import { ReactNode, useEffect } from "react";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    if (!user && !isLoading) {
+      navigate("/login", { replace: true });
+    }
+  }, [isLoading]);
 
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

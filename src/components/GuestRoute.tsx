@@ -1,12 +1,23 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
+import Loader from "./Loader";
+import { ReactNode, useEffect } from "react";
 
-const GuestRoute = () => {
+const GuestRoute = ({ children }: { children: ReactNode }) => {
   const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    if (user && !isLoading) {
+      navigate("/", { replace: true });
+    }
+  }, [isLoading, user]);
 
-  return user ? <Navigate to="/" /> : <Outlet />;
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return children;
 };
 
 export default GuestRoute;

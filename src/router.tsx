@@ -6,6 +6,8 @@ import ErrorPage from "./pages/ErrorPage";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
+import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -14,20 +16,44 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <ProtectedRoute />,
-        children: [
-          {
-            index: true,
-            element: <Home />,
-          },
-        ],
+        index: true,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        )
       },
       {
         path: "login",
-        element: <GuestRoute />,
-        children: [{ index: true, element: <Login /> }],
+        element: (
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+        )
       },
-      { path: "signup", element: <Signup /> },
+      {
+        path: "signup", element: (
+          <GuestRoute>
+            <Signup />
+          </GuestRoute>
+        )
+      },
+      {
+        path: "/orders",
+        element: (
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        ),
+      }, 
+      {
+        path: "order/:id",
+        element: (
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        )
+      }
     ],
   },
 ]);

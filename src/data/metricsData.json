@@ -1,0 +1,29 @@
+{
+    "Overall": {
+      "Product Sold": 1245,
+      "Sales Profit": 12430,
+      "Total Users": 2352,
+      "Orders Pending": 83,
+      "Orders Refunded": 12,
+      "Orders Cancelled": 9,
+      "Orders Completed": 230
+    },
+    "Last Week": {
+      "Product Sold": 150,
+      "Sales Profit": 1800,
+      "Total Users": 200,
+      "Orders Pending": 10,
+      "Orders Refunded": 2,
+      "Orders Cancelled": 1,
+      "Orders Completed": 30
+    },
+    "Last Month": {
+      "Product Sold": 400,
+      "Sales Profit": 5000,
+      "Total Users": 600,
+      "Orders Pending": 25,
+      "Orders Refunded": 5,
+      "Orders Cancelled": 3,
+      "Orders Completed": 80
+    }
+  }

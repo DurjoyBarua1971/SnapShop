@@ -1,0 +1,156 @@
+[
+    {
+        "id": 6011,
+        "status": "Completed",
+        "date": "2025-04-19T17:46:00",
+        "details": {
+            "product": {
+                "name": "Urban Explorer Sneakers",
+                "sku": "16H9URO",
+                "image": "https://via.placeholder.com/50x50?text=Sneaker",
+                "quantity": 1,
+                "price": 83.74
+            },
+            "subtotal": 83.74,
+            "shipping": 10,
+            "discount": -10,
+            "taxes": 10,
+            "total": 93.74
+        },
+        "customer": {
+            "name": "Cortez Herring",
+            "email": "vito.hudson@hotmail.com",
+            "avatar": "https://i.pravatar.cc/40?img=4",
+            "ipAddress": "192.168.1.38"
+        },
+        "shipping": {
+            "address": "19034 Verna Unions Apt. 164, Honolulu, RI 87535",
+            "phone": "365-374-4961",
+            "shipBy": "DHL",
+            "speed": "Standard",
+            "trackingNo": "SPX037739199973"
+        },
+        "payment": {
+            "method": "Credit Card",
+            "lastFour": "5678"
+        },
+        "history": [
+            {
+                "event": "Delivery successful",
+                "date": "2025-04-19T17:46:00",
+                "status": "success"
+            },
+            {
+                "event": "Transporting to [2]",
+                "date": "2025-04-18T17:46:00",
+                "status": "info"
+            },
+            {
+                "event": "Transporting to [1]",
+                "date": "2025-04-17T17:46:00",
+                "status": "info"
+            },
+            {
+                "event": "The shipping unit has picked up the goods",
+                "date": "2025-04-16T17:46:00",
+                "status": "info"
+            },
+            {
+                "event": "Order has been created",
+                "date": "2025-04-15T17:46:00",
+                "status": "info"
+            }
+        ]
+    },
+    {
+        "id": 6010,
+        "status": "Refunded",
+        "date": "2025-04-20T18:46:00",
+        "details": {
+            "product": {
+                "name": "Urban Explorer Sneakers",
+                "sku": "16H9URO",
+                "image": "https://via.placeholder.com/50x50?text=Sneaker",
+                "quantity": 6,
+                "price": 484.15
+            },
+            "subtotal": 484.15,
+            "shipping": 20,
+            "discount": -15,
+            "taxes": 15,
+            "total": 504.15
+        },
+        "customer": {
+            "name": "Jayvion Simon",
+            "email": "nannie.abernathy70@yahoo.com",
+            "avatar": "https://i.pravatar.cc/40?img=1",
+            "ipAddress": "192.168.1.45"
+        },
+        "shipping": {
+            "address": "123 Maple Street, Springfield, IL 62704",
+            "phone": "555-123-4567",
+            "shipBy": "FedEx",
+            "speed": "Express",
+            "trackingNo": "FPX987654321"
+        },
+        "payment": {
+            "method": "PayPal",
+            "lastFour": "N/A"
+        },
+        "history": [
+            {
+                "event": "Order refunded",
+                "date": "2025-04-20T18:46:00",
+                "status": "error"
+            },
+            {
+                "event": "Order has been created",
+                "date": "2025-04-15T18:46:00",
+                "status": "info"
+            }
+        ]
+    },
+    {
+        "id": 6012,
+        "status": "Pending",
+        "date": "2025-04-10T08:46:00",
+        "details": {
+            "product": {
+                "name": "Urban Explorer Sneakers",
+                "sku": "16H9URO",
+                "image": "https://via.placeholder.com/50x50?text=Sneaker",
+                "quantity": 5,
+                "price": 400.41
+            },
+            "subtotal": 400.41,
+            "shipping": 15,
+            "discount": 0,
+            "taxes": 10,
+            "total": 425.41
+        },
+        "customer": {
+            "name": "Soren Durham",
+            "email": "vergie.block82@hotmail.com",
+            "avatar": "https://i.pravatar.cc/40?img=3",
+            "ipAddress": "192.168.1.72"
+        },
+        "shipping": {
+            "address": "456 Oak Avenue, Portland, OR 97201",
+            "phone": "555-987-6543",
+            "shipBy": "UPS",
+            "speed": "Standard",
+            "trackingNo": "UPX123456789"
+        },
+        "payment": {
+            "method": "Credit Card",
+            "lastFour": "1234"
+        },
+        "history": [
+            {
+                "event": "Order has been created",
+                "date": "2025-04-10T08:46:00",
+                "status": "info"
+            }
+        ]
+    }
+]
