@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Select, Card, Space } from "antd";
+import { Select, Card} from "antd";
 import {
   UserOutlined,
   ShoppingOutlined,
@@ -57,11 +57,13 @@ const Home = () => {
     const data: MetricsData = metricsData;
     const selectedMetrics = data[filter] || data["Overall"];
 
-    const formattedMetrics: Metric[] = Object.entries(selectedMetrics).map(([label, value]) => ({
-      label,
-      value: label.includes("Profit") ? `$${value.toLocaleString()}` : value,
-      icon: iconMap[label] || null,
-    }));
+    const formattedMetrics: Metric[] = Object.entries(selectedMetrics).map(
+      ([label, value]) => ({
+        label,
+        value: label.includes("Profit") ? `$${value.toLocaleString()}` : value,
+        icon: iconMap[label] || null,
+      })
+    );
 
     // Simulate a delay to show the loader (remove in production if data loads instantly)
     setTimeout(() => {
@@ -73,7 +75,7 @@ const Home = () => {
   const navigationItems = [
     { label: "Users", path: "/user", icon: <UserOutlined /> },
     { label: "Products", path: "/product", icon: <ShoppingOutlined /> },
-    { label: "Orders", path: "/orders", icon: <FileTextOutlined /> },
+    { label: "Orders", path: "/order", icon: <FileTextOutlined /> },
   ];
 
   return (
@@ -87,7 +89,10 @@ const Home = () => {
             onChange={setFilter}
             className="w-full mx-w-[200px] md:w-48 custom-select"
             size="large"
-            dropdownStyle={{ borderRadius: "8px", fontFamily: "Poppins, sans-serif" }}
+            dropdownStyle={{
+              borderRadius: "8px",
+              fontFamily: "Poppins, sans-serif",
+            }}
           >
             {timeFilters.map((item) => (
               <Option key={item} value={item}>
@@ -130,11 +135,11 @@ const Home = () => {
               >
                 <div className="flex space-x-2 justify-center">
                   {nav.icon && (
-                    <div className="text-green-600 text-2xl">
-                      {nav.icon}
-                    </div>
+                    <div className="text-green-600 text-2xl">{nav.icon}</div>
                   )}
-                  <p className="text-2xl text-gray-600 font-bold font-poppins">{nav.label}</p>
+                  <p className="text-2xl text-gray-600 font-bold font-poppins">
+                    {nav.label}
+                  </p>
                 </div>
                 <p className="text-sm text-gray-500 mt-2 text-center">
                   Manage {nav.label.toLowerCase()} details

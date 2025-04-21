@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
+import Users from "./pages/Users";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <Home />
           </ProtectedRoute>
-        )
+        ),
       },
       {
         path: "login",
@@ -29,30 +30,39 @@ const router = createBrowserRouter([
           <GuestRoute>
             <Login />
           </GuestRoute>
-        )
+        ),
       },
       {
-        path: "signup", element: (
+        path: "signup",
+        element: (
           <GuestRoute>
             <Signup />
           </GuestRoute>
-        )
+        ),
       },
       {
-        path: "/orders",
+        path: "/order",
         element: (
           <ProtectedRoute>
             <Orders />
           </ProtectedRoute>
         ),
-      }, 
+      },
       {
         path: "order/:id",
         element: (
           <ProtectedRoute>
             <OrderDetails />
           </ProtectedRoute>
-        )
+        ),
+      },
+      {
+        path: "user",
+        element: (
+          <ProtectedRoute>
+            <Users />
+          </ProtectedRoute>
+        ),
       }
     ],
   },

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Table, Tabs, Input, Button, Tag, Space, Popconfirm, message } from "antd";
-import { SearchOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { Table, Tabs, Button, Tag, Space, Popconfirm, message } from "antd";
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import ordersData from "../data/ordersData.json";
 import Loader from "../components/Loader";
 import moment from "moment";
+import SearchBar from "../components/SearchBar";
 
 const { TabPane } = Tabs;
 
@@ -57,7 +58,9 @@ const Orders = () => {
     if (searchText) {
       filtered = filtered.filter(
         (order) =>
-          order.customer.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          order.customer.name
+            .toLowerCase()
+            .includes(searchText.toLowerCase()) ||
           order.id.toString().includes(searchText)
       );
     }
@@ -90,9 +93,9 @@ const Orders = () => {
       dataIndex: "id",
       sorter: (a: Order, b: Order) => a.id - b.id,
       render: (id: number) => (
-        <a onClick={() => navigate(`/order/${id}`)} className="text-blue-600 hover:underline">
+        <Link to={`/order/${id}`} className="text-blue-600 hover:underline">
           #{id}
-        </a>
+        </Link>
       ),
     },
     {
@@ -100,10 +103,16 @@ const Orders = () => {
       dataIndex: "customer",
       render: (customer: Customer) => (
         <div className="flex items-center">
-          <img src={customer.avatar} alt={customer.name} className="w-8 h-8 rounded-full mr-6" />
-          <div className="flex flex-col gap-3">
+          <img
+            src={customer.avatar}
+            alt={customer.name}
+            className="w-8 h-8 rounded-full mr-6"
+          />
+          <div className="flex flex-col m-0 *">
             <p className="text-gray-800 font-medium">{customer.name}</p>
-            <p className="text-gray-500 text-sm m-0 leading-none">{customer.email}</p>
+            <p className="text-gray-500 text-sm m-0 leading-none">
+              {customer.email}
+            </p>
           </div>
         </div>
       ),
@@ -111,11 +120,14 @@ const Orders = () => {
     {
       title: "Date",
       dataIndex: "date",
-      sorter: (a: Order, b: Order) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      sorter: (a: Order, b: Order) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime(),
       render: (date: string) => (
         <div>
           <p className="text-gray-800">{moment(date).format("DD MMM YYYY")}</p>
-          <p className="text-gray-500 text-sm">{moment(date).format("h:mm a")}</p>
+          <p className="text-gray-500 text-sm">
+            {moment(date).format("h:mm a")}
+          </p>
         </div>
       ),
     },
@@ -148,6 +160,12 @@ const Orders = () => {
       dataIndex: "actions",
       render: (_: any, record: Order) => (
         <Space>
+          <Button
+            type="text"
+            icon={<EyeOutlined />}
+            onClick={() => navigate(`/order/${record.id}`)}
+            className="text-blue-600"
+          />
           <Popconfirm
             title="Are you sure to delete this order?"
             onConfirm={() => handleDelete(record.id)}
@@ -156,12 +174,6 @@ const Orders = () => {
           >
             <Button type="text" icon={<DeleteOutlined />} danger />
           </Popconfirm>
-          <Button
-            type="text"
-            icon={<EyeOutlined />}
-            onClick={() => navigate(`/order/${record.id}`)}
-            className="text-blue-600"
-          />
         </Space>
       ),
     },
@@ -169,6 +181,14 @@ const Orders = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-poppins">
+      <div className="sm:ml-4">
+        <Button
+          onClick={() => navigate(-1)}
+          className="text-gray-600 border-gray-300"
+        >
+          Back
+        </Button>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Orders</h1>
 
@@ -176,72 +196,57 @@ const Orders = () => {
         <Tabs
           activeKey={activeTab}
           onChange={setActiveTab}
-          tabBarGutter={1}
           className="mb-6"
           tabBarStyle={{
             marginBottom: "5px",
             fontWeight: 500,
             fontSize: "16px",
           }}
-          moreIcon={null}
         >
-          <TabPane
-            tab={
-              <span className="px-4 py-1 rounded-full hover:bg-gray-100 transition-all">
-                All <span className="text-gray-500">({counts.All})</span>
-              </span>
-            }
-            key="All"
-          />
-          <TabPane
-            tab={
-              <span className="px-4 py-1 rounded-full hover:bg-yellow-50 transition-all text-yellow-600">
-                Pending <span className="text-gray-500">({counts.Pending})</span>
-              </span>
-            }
-            key="Pending"
-          />
-          <TabPane
-            tab={
-              <span className="px-4 py-1 rounded-full hover:bg-green-50 transition-all text-green-600">
-                Completed <span className="text-gray-500">({counts.Completed})</span>
-              </span>
-            }
-            key="Completed"
-          />
-          <TabPane
-            tab={
-              <span className="px-4 py-1 rounded-full hover:bg-red-50 transition-all text-red-500">
-                Cancelled <span className="text-gray-500">({counts.Cancelled})</span>
-              </span>
-            }
-            key="Cancelled"
-          />
-          <TabPane
-            tab={
-              <span className="px-4 py-1 rounded-full hover:bg-gray-100 transition-all text-gray-600">
-                Refunded <span className="text-gray-500">({counts.Refunded})</span>
-              </span>
-            }
-            key="Refunded"
-          />
+          {["All", "Pending", "Completed", "Cancelled", "Refunded"].map(
+            (status) => (
+              <TabPane
+                tab={
+                  <span
+                    className={`px-4 py-1 rounded-full transition-all ${
+                      status === "Pending"
+                        ? "hover:bg-yellow-50 text-yellow-600"
+                        : status === "Completed"
+                        ? "hover:bg-green-50 text-green-600"
+                        : status === "Cancelled"
+                        ? "hover:bg-red-50 text-red-500"
+                        : status === "Refunded"
+                        ? "hover:bg-gray-100 text-gray-600"
+                        : "hover:bg-gray-100"
+                    } text-shadow-md`}
+                  >
+                    {status}{" "}
+                    <span className="text-gray-500">
+                      ({counts[status as keyof typeof counts]})
+                    </span>
+                  </span>
+                }
+                key={status}
+              />
+            )
+          )}
         </Tabs>
 
-
         {/* Search */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <Input
-            placeholder="Search customer or order number..."
-            prefix={<SearchOutlined />}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6">
+          <SearchBar
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="w-full sm:w-64 custom-input"
+            onChange={setSearchText}
+            placeholder="Search customer or order number..."
           />
         </div>
 
         {/* Orders Table */}
         {loading ? (
-          <Loader tip="Fetching orders..." fullScreen={window.innerWidth < 640} />
+          <Loader
+            tip="Fetching orders..."
+            fullScreen={window.innerWidth < 640}
+          />
         ) : (
           <Table
             columns={columns}
