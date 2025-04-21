@@ -9,6 +9,7 @@ import GuestRoute from "./components/GuestRoute";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
 import Users from "./pages/Users";
+import Product from "./pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,15 @@ const router = createBrowserRouter([
             <Users />
           </ProtectedRoute>
         ),
-      }
+      },
+      {
+        path: "product",
+        element: (
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
