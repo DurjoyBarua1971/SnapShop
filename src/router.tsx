@@ -12,6 +12,7 @@ import Users from "./pages/Users";
 import Product from "./pages/Product";
 import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "product/edit/:id",
+        element: (
+          <ProtectedRoute>
+            <EditProduct />
+          </ProtectedRoute>
+        ),
+      }
     ],
   },
 ]);

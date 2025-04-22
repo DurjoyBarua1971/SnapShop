@@ -81,4 +81,10 @@ export interface AddProductParams {
   images: string[];
   thumbnail: string;
   isPublished: boolean;
+  meta?: {
+    createdAt?: string;
+    updatedAt?: string;
+    barcode?: string;
+    qrCode?: string;
+  };
 }

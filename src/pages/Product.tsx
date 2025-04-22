@@ -108,9 +108,7 @@ const Products = () => {
 
   // Handle edit
   const handleEdit = (product: Product) => {
-    message.info(
-      `Edit functionality for ${product.title} will be implemented later.`
-    );
+    navigate(`/product/edit/${product.id}`);
   };
 
   // Handle delete

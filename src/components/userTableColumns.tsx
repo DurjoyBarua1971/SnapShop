@@ -10,11 +10,11 @@ interface UserTableColumnsProps {
 
 export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserTableColumnsProps) => [
   {
-    title: "Name",
+    title: <span className="!font-poppins">Name</span>,
     dataIndex: "name",
     sorter: (a: User, b: User) => a.name.localeCompare(b.name),
     render: (name: string, record: User) => (
-      <div className="flex items-center">
+      <div className="flex items-center !font-poppins">
         <img
           src={record.avatar}
           alt={name}
@@ -23,7 +23,7 @@ export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserT
         <div className="flex flex-col m-0">
           <button
             onClick={() => handleView(record)}
-            className="text-blue-600 hover:underline text-left font-medium"
+            className="!text-blue-600 hover:underline text-left font-medium"
           >
             {name}
           </button>
@@ -35,18 +35,18 @@ export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserT
     ),
   },
   {
-    title: "Total Orders",
+    title: <span className="!font-poppins">Total Orders</span>,
     dataIndex: "totalOrders",
     sorter: (a: User, b: User) => a.totalOrders - b.totalOrders,
   },
   {
-    title: "Total Spent",
+    title: <span className="!font-poppins">Total Spent</span>,
     dataIndex: "totalSpent",
     sorter: (a: User, b: User) => a.totalSpent - b.totalSpent,
     render: (totalSpent: number) => `$${totalSpent.toFixed(2)}`,
   },
   {
-    title: "Role",
+    title: <span className="!font-poppins">Role</span>,
     dataIndex: "role",
     render: (role: string) => {
       const colorMap: { [key: string]: string } = {
@@ -59,7 +59,7 @@ export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserT
     },
   },
   {
-    title: "Status",
+    title: <span className="!font-poppins">Status</span>,
     dataIndex: "status",
     render: (status: string) => {
       const colorMap: { [key: string]: string } = {
@@ -71,7 +71,7 @@ export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserT
     },
   },
   {
-    title: "Actions",
+    title: <span className="!font-poppins">Actions</span>,
     dataIndex: "actions",
     render: (_: any, record: User) => (
       <Space>

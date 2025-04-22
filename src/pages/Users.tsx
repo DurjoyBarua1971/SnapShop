@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Table, Tabs, Button } from "antd";
+import { message } from "antd";
 import usersData from "../data/usersData.json";
-import Loader from "../components/Loader";
 import UserEditModal from "../components/UserEditModal";
-import { userTableColumns } from "../components/userTableColumns";
 import SearchBar from "../components/SearchBar";
 import { User } from "../types/user";
 import UserViewModal from "../components/UserViewModal";
-
-const { TabPane } = Tabs;
+import UserStatusTabs from "../components/UserStatusTabs";
+import BackButton from "../components/BackButton";
+import UsersTable from "../components/UserTable";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -21,7 +19,6 @@ const Users = () => {
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [viewingUser, setViewingUser] = useState<User | null>(null);
-  const navigate = useNavigate();
 
   // Load users data
   useEffect(() => {
@@ -72,6 +69,7 @@ const Users = () => {
   // Handle delete user
   const handleDelete = (userId: number) => {
     setUsers(users.filter((user) => user.id !== userId));
+    message.success("User deleted successfully!");
   };
 
   // Handle edit user
@@ -107,75 +105,31 @@ const Users = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-poppins">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate(-1)}
-          className="text-gray-600 border-gray-300"
-        >
-          Back
-        </Button>
-      </div>
+    <div className="min-h-screen bg-gray-50 !font-poppins">
+      <BackButton />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Users</h1>
-        {/* Filters */}
-        <Tabs
-          activeKey={activeTab}
+        <UserStatusTabs
+          activeTab={activeTab}
           onChange={setActiveTab}
-          tabBarGutter={1}
-          className="mb-6 font-semibold"
-          moreIcon={null}
-          items={["All", "Active", "Pending", "Blocked"].map((status) => ({
-            label: (
-              <span
-                className={`px-4 py-1 rounded-full hover:bg-${
-                  status === "Active"
-                    ? "green-50 text-green-600"
-                    : status === "Pending"
-                    ? "yellow-50 text-yellow-600"
-                    : status === "Blocked"
-                    ? "red-50 text-red-500"
-                    : "gray-100"
-                } transition-all text-shadow-md`}
-              >
-                {status}{" "}
-                <span className="text-gray-500">
-                  ({counts[status as keyof typeof counts]})
-                </span>
-              </span>
-            ),
-            key: status,
-          }))}
+          counts={counts}
         />
 
-        {/* Search */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6">
-          <SearchBar
-            value={searchText}
-            onChange={setSearchText}
-            placeholder={"Search by name or email..."}
-          />
-        </div>
+        <SearchBar
+          value={searchText}
+          onChange={setSearchText}
+          placeholder={"Search by name or email..."}
+        />
 
-        {/* Users Table */}
-        {loading ? (
-          <Loader
-            tip="Fetching users..."
-            fullScreen={window.innerWidth < 640}
-          />
-        ) : (
-          <Table
-            columns={userTableColumns({ handleEdit, handleDelete, handleView })}
-            dataSource={filteredUsers}
-            rowKey="id"
-            pagination={{ pageSize: 5 }}
-            scroll={{ x: "max-content" }}
-            className="custom-table"
-          />
-        )}
+        <UsersTable
+          users={filteredUsers}
+          loading={loading}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onView={handleView}
+        />
       </div>
 
-      {/* Edit User Modal */}
       <UserEditModal
         visible={isEditModalVisible}
         user={editingUser}
@@ -183,7 +137,6 @@ const Users = () => {
         onCancel={handleCancelEdit}
       />
 
-      {/* View User Modal */}
       <UserViewModal
         visible={isViewModalVisible}
         user={viewingUser}

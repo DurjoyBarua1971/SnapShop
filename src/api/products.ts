@@ -59,7 +59,6 @@ export const fetchCategories = async (): Promise<string[]> => {
 export const addProduct = async (
   productData: AddProductParams
 ): Promise<Product> => {
-
   let availabilityStatus = "Out of Stock";
   if (productData.stock > 10) {
     availabilityStatus = "In Stock";
@@ -79,6 +78,36 @@ export const addProduct = async (
         updatedAt: new Date().toISOString(),
         barcode: "9164035109868",
         qrCode: "https://assets.dummyjson.com/public/qr-code.png",
+      },
+    }),
+  });
+  return response.json();
+};
+
+export const updateProduct = async (
+  id: number,
+  productData: AddProductParams
+): Promise<Product> => {
+  let availabilityStatus = "Out of Stock";
+  if (productData.stock > 10) {
+    availabilityStatus = "In Stock";
+  } else if (productData.stock > 0) {
+    availabilityStatus = "Low Stock";
+  }
+
+  const response = await fetch(`https://dummyjson.com/products/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...productData,
+      availabilityStatus,
+      meta: {
+        createdAt: productData.meta?.createdAt || new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        barcode: productData.meta?.barcode || "9164035109868",
+        qrCode:
+          productData.meta?.qrCode ||
+          "https://assets.dummyjson.com/public/qr-code.png",
       },
     }),
   });
