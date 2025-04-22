@@ -6,9 +6,6 @@ import ordersData from "../data/ordersData.json";
 import Loader from "../components/Loader";
 import moment from "moment";
 import SearchBar from "../components/SearchBar";
-import { label } from "framer-motion/client";
-
-const { TabPane } = Tabs;
 
 interface Customer {
   name: string;
@@ -90,17 +87,20 @@ const Orders = () => {
   // Table columns
   const columns = [
     {
-      title: "Order",
+      title: <span className="!font-poppins">Order</span>,
       dataIndex: "id",
       sorter: (a: Order, b: Order) => a.id - b.id,
       render: (id: number) => (
-        <Link to={`/order/${id}`} className="text-blue-600 hover:underline">
-          #{id}
+        <Link
+          to={`/order/${id}`}
+          className="!text-blue-600 hover:underline !font-poppins"
+        >
+          <span className="!font-semibold">#{id}</span>
         </Link>
       ),
     },
     {
-      title: "Customer",
+      title: <span className="!font-poppins">Customer</span>,
       dataIndex: "customer",
       render: (customer: Customer) => (
         <div className="flex items-center">
@@ -109,9 +109,11 @@ const Orders = () => {
             alt={customer.name}
             className="w-8 h-8 rounded-full mr-6"
           />
-          <div className="flex flex-col m-0 *">
-            <p className="text-gray-800 font-medium">{customer.name}</p>
-            <p className="text-gray-500 text-sm m-0 leading-none">
+          <div className="flex flex-col m-0">
+            <p className="!text-gray-800 !font-medium !font-poppins !mb-0">
+              {customer.name}
+            </p>
+            <p className="!text-gray-500 !text-sm !font-poppins !mb-0">
               {customer.email}
             </p>
           </div>
@@ -119,32 +121,37 @@ const Orders = () => {
       ),
     },
     {
-      title: "Date",
+      title: <span className="!font-poppins">Date</span>,
       dataIndex: "date",
       sorter: (a: Order, b: Order) =>
         new Date(a.date).getTime() - new Date(b.date).getTime(),
       render: (date: string) => (
         <div>
-          <p className="text-gray-800">{moment(date).format("DD MMM YYYY")}</p>
-          <p className="text-gray-500 text-sm">
+          <p className="!text-gray-800 !font-poppins !mb-0">
+            {moment(date).format("DD MMM YYYY")}
+          </p>
+          <p className="!text-gray-500 !text-sm !font-poppins !mb-0">
             {moment(date).format("h:mm a")}
           </p>
         </div>
       ),
     },
     {
-      title: "Items",
+      title: <span className="!font-poppins">Items</span>,
       dataIndex: "items",
       sorter: (a: Order, b: Order) => a.items - b.items,
+      render: (items: number) => <span className="!font-inter">{items}</span>,
     },
     {
-      title: "Price",
+      title: <span className="!font-poppins">Price</span>,
       dataIndex: "price",
       sorter: (a: Order, b: Order) => a.price - b.price,
-      render: (price: number) => `$${price.toFixed(2)}`,
+      render: (price: number) => (
+        <span className="!font-inter">${price.toFixed(2)}</span>
+      ),
     },
     {
-      title: "Status",
+      title: <span className="!font-poppins">Status</span>,
       dataIndex: "status",
       render: (status: string) => {
         const colorMap: { [key: string]: string } = {
@@ -153,11 +160,15 @@ const Orders = () => {
           Cancelled: "red",
           Refunded: "gray",
         };
-        return <Tag color={colorMap[status]}>{status}</Tag>;
+        return (
+          <Tag color={colorMap[status]} className="!font-poppins">
+            {status}
+          </Tag>
+        );
       },
     },
     {
-      title: "Action",
+      title: <span className="!font-poppins">Action</span>,
       dataIndex: "actions",
       render: (_: any, record: Order) => (
         <Space>
@@ -165,7 +176,7 @@ const Orders = () => {
             type="text"
             icon={<EyeOutlined />}
             onClick={() => navigate(`/order/${record.id}`)}
-            className="text-blue-600"
+            className="!text-blue-600 !font-poppins"
           />
           <Popconfirm
             title="Are you sure to delete this order?"
@@ -181,17 +192,19 @@ const Orders = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 font-poppins">
+    <div className="min-h-screen bg-gray-50 !font-poppins">
       <div className="sm:ml-4">
         <Button
           onClick={() => navigate(-1)}
-          className="text-gray-600 border-gray-300"
+          className="!text-gray-600 border-gray-300 !font-poppins"
         >
           Back
         </Button>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Orders</h1>
+        <h1 className="!text-3xl !font-semibold !text-gray-800 !font-poppins">
+          Orders
+        </h1>
 
         {/* Filters */}
         <Tabs
@@ -209,18 +222,18 @@ const Orders = () => {
                 <span
                   className={`px-4 py-1 rounded-full transition-all ${
                     status === "Pending"
-                      ? "hover:bg-yellow-50 text-yellow-600"
+                      ? "hover:bg-yellow-50 !text-yellow-600"
                       : status === "Completed"
-                      ? "hover:bg-green-50 text-green-600"
+                      ? "hover:bg-green-50 !text-green-600"
                       : status === "Cancelled"
-                      ? "hover:bg-red-50 text-red-500"
+                      ? "hover:bg-red-50 !text-red-500"
                       : status === "Refunded"
-                      ? "hover:bg-gray-100 text-gray-600"
+                      ? "hover:bg-gray-100 !text-gray-600"
                       : "hover:bg-gray-100"
-                  } text-shadow-sm`}
+                  } !font-poppins`}
                 >
                   {status}{" "}
-                  <span className="text-gray-500">
+                  <span className="!text-gray-500 !font-poppins">
                     ({counts[status as keyof typeof counts]})
                   </span>
                 </span>

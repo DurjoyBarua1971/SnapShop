@@ -107,11 +107,11 @@ const OrderDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-poppins container">
+    <div className="min-h-screen bg-gray-50 container">
       <div className="sm:ml-4">
         <Button
           onClick={() => navigate(-1)}
-          className="text-gray-600 border-gray-300"
+          className="text-gray-600 border-gray-300 !font-poppins"
         >
           Back
         </Button>
@@ -120,7 +120,7 @@ const OrderDetails = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-semibold text-gray-800 flex gap-8 items-center">
+            <h1 className="text-3xl font-semibold text-gray-800 flex gap-8 items-center !font-poppins">
               Order #{order.id}
               <Tag
                 color={
@@ -137,7 +137,7 @@ const OrderDetails = () => {
                 {order.status}
               </Tag>
             </h1>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 mt-1 !mb-0 !font-poppins">
               {moment(order.date).format("DD MMM YYYY h:mm a")}
             </p>
           </div>
@@ -145,14 +145,14 @@ const OrderDetails = () => {
             <Button
               icon={<PrinterOutlined />}
               onClick={handlePrint}
-              className="text-gray-600 border-gray-300"
+              className="text-gray-600 border-gray-300 !mb-0 !font-poppins"
             >
               Print
             </Button>
             <Button
               icon={<EditOutlined />}
               onClick={() => message.info("Edit functionality not implemented")}
-              className="text-gray-600 border-gray-300"
+              className="text-gray-600 border-gray-300 !mb-0 !font-poppins"
             >
               Edit
             </Button>
@@ -166,7 +166,7 @@ const OrderDetails = () => {
             {/* Details */}
             <Card
               title="Details"
-              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px]"
+              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px] !font-poppins"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
@@ -230,7 +230,7 @@ const OrderDetails = () => {
             {/* History */}
             <Card
               title="History"
-              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px]"
+              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px] !font-poppins"
             >
               <Timeline>
                 {order.history.map((event, index) => (
@@ -244,10 +244,10 @@ const OrderDetails = () => {
                         : "blue"
                     }
                   >
-                    <p className="text-gray-800 font-bold font-poppins">
+                    <p className="text-gray-800 font-bold !font-poppins !mb-0">
                       {event.event}
                     </p>
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-sm !font-inter !mb-0">
                       {moment(event.date).format("DD MMM YYYY h:mm a")}
                     </p>
                   </Timeline.Item>
@@ -261,7 +261,7 @@ const OrderDetails = () => {
             {/* Customer Info */}
             <Card
               title="Customer Info"
-              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px]"
+              className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px] !font-poppins"
             >
               <div className="flex items-center mb-4">
                 <img
@@ -269,14 +269,14 @@ const OrderDetails = () => {
                   alt={order.customer.name}
                   className="w-12 h-12 rounded-full mr-4"
                 />
-                <div className="flex flex-col font-inter mb-0 overflow-hidden">
-                  <p className="text-gray-800 font-medium mb-0">
+                <div className="flex flex-col mb-0 overflow-hidden">
+                  <p className="text-gray-800 font-medium !mb-0">
                     {order.customer.name}
                   </p>
-                  <p className="text-gray-500 text-sm text-wrap mb-0">
+                  <p className="text-gray-500 text-sm !text-wrap !mb-0">
                     {order.customer.email}
                   </p>
-                  <p className="text-gray-500 text-sm mb-0 *">
+                  <p className="text-gray-500 text-sm !mb-0">
                     IP address: {order.customer.ipAddress}
                   </p>
                 </div>
@@ -285,7 +285,7 @@ const OrderDetails = () => {
                 type="link"
                 danger
                 onClick={handleBlacklist}
-                className="p-0"
+                className="p-0 !font-poppins !text-xs !font-medium"
               >
                 + Add to Blacklist
               </Button>
@@ -296,30 +296,42 @@ const OrderDetails = () => {
               title="Shipping"
               className="bg-white border-gray-200 shadow-sm rounded-xl p-[16px]"
             >
-              <div className="space-y-2">
+              <div className="space-y-2 !font-poppins">
                 <div>
-                  <p className="text-gray-600 text-sm">Address</p>
-                  <p className="text-gray-800">{order.shipping.address}</p>
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Address
+                  </p>
+                  <p className="text-gray-700">{order.shipping.address}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm">Phone number</p>
-                  <p className="text-gray-800">{order.shipping.phone}</p>
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Phone number
+                  </p>
+                  <p className="text-gray-700">{order.shipping.phone}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm">Ship by</p>
-                  <p className="text-gray-800">{order.shipping.shipBy}</p>
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Ship by
+                  </p>
+                  <p className="text-gray-700">{order.shipping.shipBy}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm">Speedy</p>
-                  <p className="text-gray-800">{order.shipping.speed}</p>
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Speedy
+                  </p>
+                  <p className="text-gray-700">{order.shipping.speed}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm">Tracking No.</p>
-                  <p className="text-gray-800">{order.shipping.trackingNo}</p>
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Tracking No.
+                  </p>
+                  <p className="text-gray-700">{order.shipping.trackingNo}</p>
                 </div>
                 <div className="border-t pt-2">
-                  <p className="text-gray-600 text-sm">Payment</p>
-                  <p className="text-gray-800 flex items-center">
+                  <p className="text-gray-400 font-medium text-sm !mb-0">
+                    Payment
+                  </p>
+                  <p className="text-gray-700 flex items-center">
                     {order.payment.method}
                     {order.payment.method === "Credit Card" && (
                       <span className="ml-2 text-gray-500">

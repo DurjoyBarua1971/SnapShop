@@ -80,17 +80,17 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-poppins">
+    <div className="min-h-screen bg-gray-50 !font-poppins">
       <div className="sm:ml-4">
         <Button
           onClick={() => navigate("/product")}
-          className="text-gray-600 border-gray-300"
+          className="text-gray-600 border-gray-300 !font-poppins"
         >
           Back
         </Button>
       </div>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">
+        <h1 className="text-3xl !font-semibold text-gray-800 mb-6 ">
           Add New Product
         </h1>
         <Form
@@ -111,7 +111,7 @@ const AddProduct = () => {
         >
           <Collapse defaultActiveKey={["1", "2", "3", "4"]} className="!mb-6">
             {/* Basic Information */}
-            <Panel header="Basic Information" key="1">
+            <Panel header="Basic Information" key="1" className="!font-poppins">
               <Row gutter={16}>
                 <Col xs={24} md={12}>
                   <Form.Item
@@ -123,6 +123,7 @@ const AddProduct = () => {
                         message: "Please enter the product title",
                       },
                     ]}
+                    className="!font-poppins"
                   >
                     <Input placeholder="e.g., Essence Mascara Lash Princess" />
                   </Form.Item>
@@ -371,14 +372,10 @@ const AddProduct = () => {
                 {(fields, { add, remove }) => (
                   <>
                     {fields.map(({ key, name, ...restField }) => (
-                      <Space
-                        key={key}
-                        className="!flex"
-                        align="baseline"
-                      >
+                      <Space key={key} className="!flex" align="baseline">
                         <Form.Item
                           {...restField}
-                          name={[name]}                          
+                          name={[name]}
                           rules={[
                             { required: true, message: "Please enter a tag" },
                           ]}

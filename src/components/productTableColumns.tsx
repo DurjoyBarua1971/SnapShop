@@ -25,7 +25,7 @@ export const productTableColumns = ({
 }: ProductTableColumnsProps) => {
   return [
     {
-      title: "Thumbnail",
+      title: <span className="!font-poppins">Thumbnail</span>,
       dataIndex: "thumbnail",
       render: (thumbnail: string) => (
         <img
@@ -36,7 +36,7 @@ export const productTableColumns = ({
       ),
     },
     {
-      title: "Title",
+      title: <span className="!font-poppins">Title</span>,
       dataIndex: "title",
       sorter: (a: Product, b: Product) => a.title.localeCompare(b.title),
       render: (title: string, record: Product) => (
@@ -49,7 +49,7 @@ export const productTableColumns = ({
       ),
     },
     {
-      title: "Category",
+      title: <span className="!font-poppins">Category</span>,
       dataIndex: "category",
       sorter: (a: Product, b: Product) => a.category.localeCompare(b.category),
       render: (category: string) => (
@@ -57,15 +57,17 @@ export const productTableColumns = ({
       ),
     },
     {
-      title: "Price",
+      title: <span className="!font-poppins">Price</span>,
       dataIndex: "price",
       sorter: (a: Product, b: Product) => a.price - b.price,
       render: (price: number) => (
-        <span className="text-gray-800 font-poppins font-medium">${price.toFixed(2)}</span>
+        <span className="text-gray-800 font-poppins font-medium">
+          ${price.toFixed(2)}
+        </span>
       ),
     },
     {
-      title: "Stock",
+      title: <span className="!font-poppins">Stock</span>,
       dataIndex: "stock",
       sorter: (a: Product, b: Product) => a.stock - b.stock,
       render: (stock: number, record: Product) => {
@@ -101,20 +103,22 @@ export const productTableColumns = ({
                 style={{ width: `${percentage}%` }}
               />
             </div>
-            <span className={`text-sm font-semibold mt-1 text-center text-gray-500 font-poppins`}>{label}</span>
+            <span
+              className={`text-sm font-semibold mt-1 text-center text-gray-500 font-poppins`}
+            >
+              {label}
+            </span>
           </div>
         );
       },
     },
     {
-      title: "Publish",
+      title: <span className="!font-poppins">Publish</span>,
       dataIndex: "publish",
-      render: () => (
-        <span className="text-gray-800 font-inter">Published</span>
-      ),
+      render: () => <span className="text-gray-800 font-inter">Published</span>,
     },
     {
-      title: "Actions",
+      title: <span className="!font-poppins">Actions</span>,
       dataIndex: "actions",
       render: (_: any, record: Product) => (
         <Dropdown
