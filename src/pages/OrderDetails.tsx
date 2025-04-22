@@ -194,30 +194,17 @@ const OrderDetails = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between">
-                  <p className="text-gray-600">Subtotal</p>
-                  <p className="text-gray-800">
-                    ${order.details.subtotal.toFixed(2)}
-                  </p>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-600">Shipping</p>
-                  <p className="text-gray-800">
-                    ${order.details.shipping.toFixed(2)}
-                  </p>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-600">Discount</p>
-                  <p className="text-gray-800">
-                    ${order.details.discount.toFixed(2)}
-                  </p>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-600">Taxes</p>
-                  <p className="text-gray-800">
-                    ${order.details.taxes.toFixed(2)}
-                  </p>
-                </div>
+                {[
+                  { label: "Subtotal", value: order.details.subtotal },
+                  { label: "Shipping", value: order.details.shipping },
+                  { label: "Discount", value: order.details.discount },
+                  { label: "Taxes", value: order.details.taxes },
+                ].map((item, index) => (
+                  <div key={index} className="flex justify-between">
+                    <p className="text-gray-600">{item.label}</p>
+                    <p className="text-gray-800">${item.value.toFixed(2)}</p>
+                  </div>
+                ))}
                 <div className="flex justify-between border-t pt-2">
                   <p className="text-gray-800 font-semibold">Total</p>
                   <p className="text-gray-800 font-semibold">

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { message } from "antd";
 import usersData from "../data/usersData.json";
-import UserEditModal from "../components/UserEditModal";
+import UserEditModal from "../components/User/UserEditModal";
 import SearchBar from "../components/SearchBar";
 import { User } from "../types/user";
-import UserViewModal from "../components/UserViewModal";
-import UserStatusTabs from "../components/UserStatusTabs";
+import UserViewModal from "../components/User/UserViewModal";
+import UserStatusTabs from "../components/User/UserStatusTabs";
 import BackButton from "../components/BackButton";
-import UsersTable from "../components/UserTable";
+import UsersTable from "../components/User/UserTable";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);

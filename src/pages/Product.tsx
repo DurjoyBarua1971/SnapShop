@@ -4,8 +4,8 @@ import { Table, Button, message, Modal } from "antd";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchProducts, deleteProduct } from "../api/products";
 import SearchBar from "../components/SearchBar";
-import StockStatusTabs from "../components/StockStatusTabs";
-import { productTableColumns } from "../components/productTableColumns";
+import StockStatusTabs from "../components/Product/StockStatusTabs";
+import { productTableColumns } from "../components/Product/productTableColumns";
 import { DeleteProductResponse, FetchProductsResponse } from "../types/product";
 import BackButton from "../components/BackButton";
 

@@ -1,5 +1,5 @@
 import { Modal, Form, Input as AntInput, Select, message } from "antd";
-import { User } from "../types/user";
+import { User } from "../../types/user";
 
 const { Option } = Select;
 

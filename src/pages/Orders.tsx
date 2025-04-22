@@ -1,26 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Table, Tabs, Button, Tag, Space, Popconfirm, message } from "antd";
-import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 import ordersData from "../data/ordersData.json";
-import Loader from "../components/Loader";
-import moment from "moment";
 import SearchBar from "../components/SearchBar";
-
-interface Customer {
-  name: string;
-  email: string;
-  avatar: string;
-}
-
-interface Order {
-  id: number;
-  customer: Customer;
-  date: string;
-  items: number;
-  price: number;
-  status: string;
-}
+import BackButton from "../components/BackButton";
+import { Order } from "../types/order";
+import OrderStatusTabs from "../components/Order/OrderStatusTabs";
+import OrdersTable from "../components/Order/OrderTable";
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -78,195 +64,41 @@ const Orders = () => {
     { All: 0, Pending: 0, Completed: 0, Cancelled: 0, Refunded: 0 }
   );
 
-  // Handle delete order
   const handleDelete = (orderId: number) => {
     setOrders(orders.filter((order) => order.id !== orderId));
     message.success("Order deleted successfully");
   };
 
-  // Table columns
-  const columns = [
-    {
-      title: <span className="!font-poppins">Order</span>,
-      dataIndex: "id",
-      sorter: (a: Order, b: Order) => a.id - b.id,
-      render: (id: number) => (
-        <Link
-          to={`/order/${id}`}
-          className="!text-blue-600 hover:underline !font-poppins"
-        >
-          <span className="!font-semibold">#{id}</span>
-        </Link>
-      ),
-    },
-    {
-      title: <span className="!font-poppins">Customer</span>,
-      dataIndex: "customer",
-      render: (customer: Customer) => (
-        <div className="flex items-center">
-          <img
-            src={customer.avatar}
-            alt={customer.name}
-            className="w-8 h-8 rounded-full mr-6"
-          />
-          <div className="flex flex-col m-0">
-            <p className="!text-gray-800 !font-medium !font-poppins !mb-0">
-              {customer.name}
-            </p>
-            <p className="!text-gray-500 !text-sm !font-poppins !mb-0">
-              {customer.email}
-            </p>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: <span className="!font-poppins">Date</span>,
-      dataIndex: "date",
-      sorter: (a: Order, b: Order) =>
-        new Date(a.date).getTime() - new Date(b.date).getTime(),
-      render: (date: string) => (
-        <div>
-          <p className="!text-gray-800 !font-poppins !mb-0">
-            {moment(date).format("DD MMM YYYY")}
-          </p>
-          <p className="!text-gray-500 !text-sm !font-poppins !mb-0">
-            {moment(date).format("h:mm a")}
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: <span className="!font-poppins">Items</span>,
-      dataIndex: "items",
-      sorter: (a: Order, b: Order) => a.items - b.items,
-      render: (items: number) => <span className="!font-inter">{items}</span>,
-    },
-    {
-      title: <span className="!font-poppins">Price</span>,
-      dataIndex: "price",
-      sorter: (a: Order, b: Order) => a.price - b.price,
-      render: (price: number) => (
-        <span className="!font-inter">${price.toFixed(2)}</span>
-      ),
-    },
-    {
-      title: <span className="!font-poppins">Status</span>,
-      dataIndex: "status",
-      render: (status: string) => {
-        const colorMap: { [key: string]: string } = {
-          Pending: "gold",
-          Completed: "green",
-          Cancelled: "red",
-          Refunded: "gray",
-        };
-        return (
-          <Tag color={colorMap[status]} className="!font-poppins">
-            {status}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: <span className="!font-poppins">Action</span>,
-      dataIndex: "actions",
-      render: (_: any, record: Order) => (
-        <Space>
-          <Button
-            type="text"
-            icon={<EyeOutlined />}
-            onClick={() => navigate(`/order/${record.id}`)}
-            className="!text-blue-600 !font-poppins"
-          />
-          <Popconfirm
-            title="Are you sure to delete this order?"
-            onConfirm={() => handleDelete(record.id)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button type="text" icon={<DeleteOutlined />} danger />
-          </Popconfirm>
-        </Space>
-      ),
-    },
-  ];
+  const handleView = (id: number) => {
+    navigate(`/order/${id}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 !font-poppins">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate(-1)}
-          className="!text-gray-600 border-gray-300 !font-poppins"
-        >
-          Back
-        </Button>
-      </div>
+      <BackButton />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 className="!text-3xl !font-semibold !text-gray-800 !font-poppins">
           Orders
         </h1>
 
-        {/* Filters */}
-        <Tabs
-          activeKey={activeTab}
+        <OrderStatusTabs
+          activeTab={activeTab}
           onChange={setActiveTab}
-          className="mb-6"
-          tabBarStyle={{
-            marginBottom: "5px",
-            fontWeight: 500,
-            fontSize: "16px",
-          }}
-          items={["All", "Pending", "Completed", "Cancelled", "Refunded"].map(
-            (status) => ({
-              label: (
-                <span
-                  className={`px-4 py-1 rounded-full transition-all ${
-                    status === "Pending"
-                      ? "hover:bg-yellow-50 !text-yellow-600"
-                      : status === "Completed"
-                      ? "hover:bg-green-50 !text-green-600"
-                      : status === "Cancelled"
-                      ? "hover:bg-red-50 !text-red-500"
-                      : status === "Refunded"
-                      ? "hover:bg-gray-100 !text-gray-600"
-                      : "hover:bg-gray-100"
-                  } !font-poppins`}
-                >
-                  {status}{" "}
-                  <span className="!text-gray-500 !font-poppins">
-                    ({counts[status as keyof typeof counts]})
-                  </span>
-                </span>
-              ),
-              key: status,
-            })
-          )}
+          counts={counts}
         />
 
-        {/* Search */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6">
-          <SearchBar
-            value={searchText}
-            onChange={setSearchText}
-            placeholder="Search customer or order number..."
-          />
-        </div>
+        <SearchBar
+          value={searchText}
+          onChange={setSearchText}
+          placeholder="Search customer or order number..."
+        />
 
-        {/* Orders Table */}
-        {loading ? (
-          <Loader
-            tip="Fetching orders..."
-            fullScreen={window.innerWidth < 640}
-          />
-        ) : (
-          <Table
-            columns={columns}
-            dataSource={filteredOrders}
-            rowKey="id"
-            pagination={{ pageSize: 5 }}
-            scroll={{ x: "max-content" }}
-          />
-        )}
+        <OrdersTable
+          orders={filteredOrders}
+          loading={loading}
+          onDelete={handleDelete}
+          onView={handleView}
+        />
       </div>
     </div>
   );

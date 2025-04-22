@@ -89,8 +89,8 @@ const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100">
           <div className="px-4 pt-2 pb-2 space-y-2">
-            {["/", "/user", "/product"].map((path, i) => {
-              const labels = ["Home", "User", "Product"];
+            {["/", "/user", "/product", "/order"].map((path, i) => {
+              const labels = ["Home", "Users", "Products", "Orders"];
               return (
                 <NavLink
                   key={path}

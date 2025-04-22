@@ -1,6 +1,6 @@
 import { Button, Tag, Space, Popconfirm } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { User } from "../types/user";
+import { User } from "../../types/user";
 
 interface UserTableColumnsProps {
   handleEdit: (user: User) => void;
@@ -8,7 +8,11 @@ interface UserTableColumnsProps {
   handleView: (user: User) => void; // Add handleView prop
 }
 
-export const userTableColumns = ({ handleEdit, handleDelete, handleView }: UserTableColumnsProps) => [
+export const userTableColumns = ({
+  handleEdit,
+  handleDelete,
+  handleView,
+}: UserTableColumnsProps) => [
   {
     title: <span className="!font-poppins">Name</span>,
     dataIndex: "name",

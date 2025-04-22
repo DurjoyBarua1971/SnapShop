@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Select, Card} from "antd";
+import { Select, Card } from "antd";
 import {
   UserOutlined,
   ShoppingOutlined,
@@ -14,7 +14,7 @@ import {
   CheckCircleOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import MetricCard from "../components/MetricCard";
+import MetricCard from "../components/Dashboard/MetricCard";
 import Loader from "../components/Loader";
 import metricsData from "../data/metricsData.json";
 

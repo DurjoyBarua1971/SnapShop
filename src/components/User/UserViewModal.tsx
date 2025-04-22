@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { User } from "../types/user";
+import { User } from "../../types/user";
 
 interface UserViewModalProps {
   visible: boolean;
