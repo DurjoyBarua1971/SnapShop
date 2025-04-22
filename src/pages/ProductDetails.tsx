@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../api/products";
 import { Button, Card, Rate, Carousel, Tag, message } from "antd";
 import { Product } from "../types/product";
-import { CheckCircleOutlined } from "@ant-design/icons";
 import Loader from "../components/Loader";
 
 const ProductDetails = () => {
