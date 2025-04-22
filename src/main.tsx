@@ -17,18 +17,11 @@ const queryClient = new QueryClient({
   },
 });
 
-// createRoot(document.getElementById("root")!).render(
-//   <StrictMode>
-//     <QueryClientProvider client={queryClient}>
-//       <ReactQueryDevtools initialIsOpen={false} />
-//       <RouterProvider router={router} />
-//     </QueryClientProvider>
-//   </StrictMode>
-// );
-
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
-    <RouterProvider router={router} />
-  </QueryClientProvider>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </StrictMode>
 );
