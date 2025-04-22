@@ -1,7 +1,5 @@
 import { Tabs } from "antd";
 
-const { TabPane } = Tabs;
-
 interface StockStatusTabsProps {
   activeTab: string;
   counts: { [key: string]: number };

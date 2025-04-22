@@ -37,12 +37,10 @@ const Users = () => {
   useEffect(() => {
     let filtered = users;
 
-    // Filter by status (tab)
     if (activeTab !== "All") {
       filtered = filtered.filter((user) => user.status === activeTab);
     }
 
-    // Filter by search text
     if (searchText) {
       filtered = filtered.filter(
         (user) =>
@@ -54,7 +52,6 @@ const Users = () => {
     setFilteredUsers(filtered);
   }, [activeTab, searchText, users]);
 
-  // Calculate counts for tabs
   const counts = users.reduce(
     (acc, user) => {
       acc.All += 1;
@@ -66,13 +63,11 @@ const Users = () => {
     { All: 0, Active: 0, Pending: 0, Blocked: 0 }
   );
 
-  // Handle delete user
   const handleDelete = (userId: number) => {
     setUsers(users.filter((user) => user.id !== userId));
     message.success("User deleted successfully!");
   };
 
-  // Handle edit user
   const handleEdit = (user: User) => {
     setEditingUser(user);
     setIsEditModalVisible(true);
@@ -93,7 +88,6 @@ const Users = () => {
     setEditingUser(null);
   };
 
-  // Handle view user
   const handleView = (user: User) => {
     setViewingUser(user);
     setIsViewModalVisible(true);

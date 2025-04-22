@@ -7,6 +7,7 @@ import SearchBar from "../components/SearchBar";
 import StockStatusTabs from "../components/StockStatusTabs";
 import { productTableColumns } from "../components/productTableColumns";
 import { DeleteProductResponse, FetchProductsResponse } from "../types/product";
+import BackButton from "../components/BackButton";
 
 interface Product {
   id: number;
@@ -27,14 +28,14 @@ const Products = () => {
   const queryClient = useQueryClient();
   const skip = (page - 1) * pageSize;
 
-  // Fetch paginated products for the table
+  // Paginated products for the table
   const { data, isLoading } = useQuery({
     queryKey: ["products", { limit: pageSize, skip, searchQuery, stockStatus }],
     queryFn: () =>
       fetchProducts({ limit: pageSize, skip, searchQuery, stockStatus }),
   });
 
-  // Fetch all products for accurate counts
+  // All products for accurate counts
   const { data: allProductsData } = useQuery({
     queryKey: ["products", "all"],
     queryFn: () => fetchProducts({ limit: 0, searchQuery }),
@@ -106,12 +107,10 @@ const Products = () => {
     navigate(`/product/${id}`);
   };
 
-  // Handle edit
   const handleEdit = (product: Product) => {
     navigate(`/product/edit/${product.id}`);
   };
 
-  // Handle delete
   const handleDelete = (id: number) => {
     Modal.confirm({
       title: "Are you sure you want to delete this product?",
@@ -125,48 +124,35 @@ const Products = () => {
     });
   };
 
-  // Handle new product
   const handleNewProduct = () => {
     navigate("/product/add");
   };
 
   return (
     <div className="min-h-screen bg-gray-50 font-poppins">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate(-1)}
-          className="text-gray-600 border-gray-300"
-        >
-          Back
-        </Button>
-      </div>
+      <BackButton />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Products</h1>
-
-        {/* Filters and Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <StockStatusTabs
             activeTab={stockStatus}
             counts={counts}
             onChange={setStockStatus}
           />
-          <div className="flex flex-col sm:flex-row gap-4">
-            <SearchBar
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search by name or description..."
-            />
-            <Button
-              type="primary"
-              className="bg-green-600 hover:bg-green-700"
-              onClick={handleNewProduct}
-            >
-              + New Product
-            </Button>
-          </div>
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search by name or description..."
+          />
+          <Button
+            type="primary"
+            className="!bg-green-600 hover:!bg-green-700"
+            onClick={handleNewProduct}
+          >
+            + New Product
+          </Button>
         </div>
 
-        {/* Products Table */}
         <Table
           columns={productTableColumns({
             handleView,
