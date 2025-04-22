@@ -1,4 +1,5 @@
 import {
+  AddProductParams,
   DeleteProductResponse,
   FetchProductsParams,
   FetchProductsResponse,
@@ -40,9 +41,46 @@ export const fetchProductById = async (id: string): Promise<Product> => {
   return response.json();
 };
 
-export const deleteProduct = async (id: number): Promise<DeleteProductResponse> => {
+export const deleteProduct = async (
+  id: number
+): Promise<DeleteProductResponse> => {
   const response = await fetch(`https://dummyjson.com/products/${id}`, {
     method: "DELETE",
+  });
+  return response.json();
+};
+
+export const fetchCategories = async (): Promise<string[]> => {
+  const response = await fetch("https://dummyjson.com/products/categories");
+  const data = response.json();
+  return (await data).map((category: { name: string }) => category.name);
+};
+
+export const addProduct = async (
+  productData: AddProductParams
+): Promise<Product> => {
+
+  let availabilityStatus = "Out of Stock";
+  if (productData.stock > 10) {
+    availabilityStatus = "In Stock";
+  } else if (productData.stock > 0) {
+    availabilityStatus = "Low Stock";
+  }
+
+  const response = await fetch("https://dummyjson.com/products/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...productData,
+      availabilityStatus,
+      rating: [],
+      meta: {
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        barcode: "9164035109868",
+        qrCode: "https://assets.dummyjson.com/public/qr-code.png",
+      },
+    }),
   });
   return response.json();
 };

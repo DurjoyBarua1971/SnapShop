@@ -81,9 +81,11 @@ const Users = () => {
   };
 
   const handleSaveEdit = (values: Partial<User>) => {
-    setUsers(users.map((user) =>
-      user.id === editingUser?.id ? { ...user, ...values } : user
-    ));
+    setUsers(
+      users.map((user) =>
+        user.id === editingUser?.id ? { ...user, ...values } : user
+      )
+    );
     setIsEditModalVisible(false);
     setEditingUser(null);
   };
@@ -123,31 +125,28 @@ const Users = () => {
           tabBarGutter={1}
           className="mb-6 font-semibold"
           moreIcon={null}
-        >
-          {["All", "Active", "Pending", "Blocked"].map((status) => (
-            <TabPane
-              tab={
-                <span
-                  className={`px-4 py-1 rounded-full hover:bg-${
-                    status === "Active"
-                      ? "green-50 text-green-600"
-                      : status === "Pending"
-                      ? "yellow-50 text-yellow-600"
-                      : status === "Blocked"
-                      ? "red-50 text-red-500"
-                      : "gray-100"
-                  } transition-all text-shadow-md`}
-                >
-                  {status}{" "}
-                  <span className="text-gray-500">
-                    ({counts[status as keyof typeof counts]})
-                  </span>
+          items={["All", "Active", "Pending", "Blocked"].map((status) => ({
+            label: (
+              <span
+                className={`px-4 py-1 rounded-full hover:bg-${
+                  status === "Active"
+                    ? "green-50 text-green-600"
+                    : status === "Pending"
+                    ? "yellow-50 text-yellow-600"
+                    : status === "Blocked"
+                    ? "red-50 text-red-500"
+                    : "gray-100"
+                } transition-all text-shadow-md`}
+              >
+                {status}{" "}
+                <span className="text-gray-500">
+                  ({counts[status as keyof typeof counts]})
                 </span>
-              }
-              key={status}
-            />
-          ))}
-        </Tabs>
+              </span>
+            ),
+            key: status,
+          }))}
+        />
 
         {/* Search */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6">

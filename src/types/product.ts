@@ -57,3 +57,28 @@ export interface DeleteProductResponse {
   isDeleted: boolean;
   deletedOn: string;
 }
+
+export interface AddProductParams {
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  discountPercentage: number;
+  stock: number;
+  tags: string[];
+  brand: string;
+  sku: string;
+  weight: number;
+  dimensions: {
+    width: number;
+    height: number;
+    depth: number;
+  };
+  warrantyInformation: string;
+  shippingInformation: string;
+  returnPolicy: string;
+  minimumOrderQuantity: number;
+  images: string[];
+  thumbnail: string;
+  isPublished: boolean;
+}

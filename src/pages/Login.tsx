@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import InfoIcon from "../assets/icons8-info.svg";
 import LoginImage from "../assets/login.avif";
-
+import { message } from "antd";
 
 interface LoginForm {
   username: string;
@@ -14,8 +14,8 @@ interface LoginForm {
 
 const schema = yup
   .object({
-    username: yup.string().required("Username is required"),
-    password: yup.string().required("Password is required"),
+    username: yup.string().trim().required("Username is required"),
+    password: yup.string().trim().required("Password is required"),
   })
   .required();
 
@@ -27,6 +27,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<LoginForm>({
     resolver: yupResolver(schema),
   });
@@ -36,7 +37,9 @@ const Login = () => {
       await login(data.username, data.password);
       navigate("/");
     } catch (error) {
+      message.error("Login failed. Please check your credentials.");
       console.error("Login failed", error);
+      reset();
     }
   };
 
@@ -110,10 +113,11 @@ const Login = () => {
                 </label>
                 <Link
                   to="/login"
-                  onClick={() =>
-                    console.log("Password recovery is not implemented")
-                  }
-                  className="text-sm text-green-600 hover:underline"
+                  onClick={() => {
+                    message.info("Password recovery is not implemented");
+                    console.log("Password recovery is not implemented");
+                  }}
+                  className="text-sm text-green-600 hover:underline mb-1"
                 >
                   Forgot password?
                 </Link>

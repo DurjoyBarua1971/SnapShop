@@ -113,8 +113,7 @@ const Products = () => {
     );
   };
 
-  // Handle delete with confirmation
-  // Handle delete with confirmation
+  // Handle delete
   const handleDelete = (id: number) => {
     Modal.confirm({
       title: "Are you sure you want to delete this product?",
@@ -130,7 +129,7 @@ const Products = () => {
 
   // Handle new product
   const handleNewProduct = () => {
-    message.info("Create product functionality will be implemented later.");
+    navigate("/product/add");
   };
 
   return (

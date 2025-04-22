@@ -2,7 +2,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
-import SignImage from "../assets/sign.jpg"
+import SignImage from "../assets/sign.jpg";
+import { message } from "antd";
 
 interface SignupForm {
   username: string;
@@ -12,10 +13,15 @@ interface SignupForm {
 
 const schema = yup
   .object({
-    username: yup.string().required("Username is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
+    username: yup.string().trim().required("Username is required"),
+    email: yup
+      .string()
+      .trim()
+      .email("Invalid email")
+      .required("Email is required"),
     password: yup
       .string()
+      .trim()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   })
@@ -28,6 +34,7 @@ const Signup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SignupForm>({
     resolver: yupResolver(schema),
   });
@@ -37,7 +44,9 @@ const Signup = () => {
       console.log("Signup data", data);
       navigate("/login");
     } catch (error) {
+      message.error("Signup failed. Please check your details.");
       console.error("Signup failed", error);
+      reset();
     }
   };
 

@@ -6,6 +6,7 @@ import ordersData from "../data/ordersData.json";
 import Loader from "../components/Loader";
 import moment from "moment";
 import SearchBar from "../components/SearchBar";
+import { label } from "framer-motion/client";
 
 const { TabPane } = Tabs;
 
@@ -202,35 +203,32 @@ const Orders = () => {
             fontWeight: 500,
             fontSize: "16px",
           }}
-        >
-          {["All", "Pending", "Completed", "Cancelled", "Refunded"].map(
-            (status) => (
-              <TabPane
-                tab={
-                  <span
-                    className={`px-4 py-1 rounded-full transition-all ${
-                      status === "Pending"
-                        ? "hover:bg-yellow-50 text-yellow-600"
-                        : status === "Completed"
-                        ? "hover:bg-green-50 text-green-600"
-                        : status === "Cancelled"
-                        ? "hover:bg-red-50 text-red-500"
-                        : status === "Refunded"
-                        ? "hover:bg-gray-100 text-gray-600"
-                        : "hover:bg-gray-100"
-                    } text-shadow-md`}
-                  >
-                    {status}{" "}
-                    <span className="text-gray-500">
-                      ({counts[status as keyof typeof counts]})
-                    </span>
+          items={["All", "Pending", "Completed", "Cancelled", "Refunded"].map(
+            (status) => ({
+              label: (
+                <span
+                  className={`px-4 py-1 rounded-full transition-all ${
+                    status === "Pending"
+                      ? "hover:bg-yellow-50 text-yellow-600"
+                      : status === "Completed"
+                      ? "hover:bg-green-50 text-green-600"
+                      : status === "Cancelled"
+                      ? "hover:bg-red-50 text-red-500"
+                      : status === "Refunded"
+                      ? "hover:bg-gray-100 text-gray-600"
+                      : "hover:bg-gray-100"
+                  } text-shadow-sm`}
+                >
+                  {status}{" "}
+                  <span className="text-gray-500">
+                    ({counts[status as keyof typeof counts]})
                   </span>
-                }
-                key={status}
-              />
-            )
+                </span>
+              ),
+              key: status,
+            })
           )}
-        </Tabs>
+        />
 
         {/* Search */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6">

@@ -11,6 +11,7 @@ import OrderDetails from "./pages/OrderDetails";
 import Users from "./pages/Users";
 import Product from "./pages/Product";
 import ProductDetails from "./pages/ProductDetails";
+import AddProduct from "./pages/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ProductDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "product/add",
+        element: (
+          <ProtectedRoute>
+            <AddProduct />
           </ProtectedRoute>
         ),
       },

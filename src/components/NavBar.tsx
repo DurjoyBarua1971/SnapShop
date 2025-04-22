@@ -17,8 +17,8 @@ const Navbar: React.FC = () => {
           </Link>
 
           <div className="hidden md:flex space-x-6 items-center">
-            {["/", "/user", "/product"].map((path, i) => {
-              const labels = ["Home", "Users", "Products"];
+            {["/", "/user", "/product", "/order"].map((path, i) => {
+              const labels = ["Home", "Users", "Products", "Orders"];
               return (
                 <NavLink
                   key={path}
