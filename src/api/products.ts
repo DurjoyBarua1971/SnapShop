@@ -1,4 +1,5 @@
 import {
+  DeleteProductResponse,
   FetchProductsParams,
   FetchProductsResponse,
   Product,
@@ -36,5 +37,12 @@ export const fetchProducts = async ({
 
 export const fetchProductById = async (id: string): Promise<Product> => {
   const response = await fetch(`https://dummyjson.com/products/${id}`);
+  return response.json();
+};
+
+export const deleteProduct = async (id: number): Promise<DeleteProductResponse> => {
+  const response = await fetch(`https://dummyjson.com/products/${id}`, {
+    method: "DELETE",
+  });
   return response.json();
 };

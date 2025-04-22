@@ -101,12 +101,12 @@ const ProductDetails = () => {
               <h1 className="text-3xl !font-semibold text-gray-800 mt-2">
                 {product.title}
               </h1>
-              <div className="flex items-center mt-2">
+              <div className="flex items-center mt-2 text-sm sm:text-base">
                 <Rate
                   disabled
                   value={product.rating}
                   allowHalf
-                  className="mr-2"
+                  className="!mr-2"
                 />
                 <span className="text-gray-600">
                   ({product.rating.toFixed(1)}) - {product.reviews.length}{" "}

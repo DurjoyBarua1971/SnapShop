@@ -51,3 +51,9 @@ export interface FetchProductsResponse {
   skip: number;
   limit: number;
 }
+
+export interface DeleteProductResponse {
+  id: number;
+  isDeleted: boolean;
+  deletedOn: string;
+}

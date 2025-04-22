@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table, Button, message } from "antd";
-import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../api/products";
+import { Table, Button, message, Modal } from "antd";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchProducts, deleteProduct } from "../api/products";
 import SearchBar from "../components/SearchBar";
 import StockStatusTabs from "../components/StockStatusTabs";
 import { productTableColumns } from "../components/productTableColumns";
+import { DeleteProductResponse, FetchProductsResponse } from "../types/product";
 
 interface Product {
   id: number;
@@ -23,20 +24,65 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [stockStatus, setStockStatus] = useState("All");
   const navigate = useNavigate();
-
-  // Calculate skip based on page and pageSize
+  const queryClient = useQueryClient();
   const skip = (page - 1) * pageSize;
 
   // Fetch paginated products for the table
   const { data, isLoading } = useQuery({
     queryKey: ["products", { limit: pageSize, skip, searchQuery, stockStatus }],
-    queryFn: () => fetchProducts({ limit: pageSize, skip, searchQuery, stockStatus }),
+    queryFn: () =>
+      fetchProducts({ limit: pageSize, skip, searchQuery, stockStatus }),
   });
 
   // Fetch all products for accurate counts
   const { data: allProductsData } = useQuery({
     queryKey: ["products", "all"],
     queryFn: () => fetchProducts({ limit: 0, searchQuery }),
+  });
+
+  // Delete mutation
+  const deleteMutation = useMutation<DeleteProductResponse, Error, number>({
+    mutationFn: deleteProduct,
+    onMutate: async (id: number) => {
+      const paginatedQueryKey = [
+        "products",
+        { limit: pageSize, skip, searchQuery, stockStatus },
+      ];
+      const allProductsQueryKey = ["products", "all"];
+
+      // Update paginated products
+      queryClient.setQueryData<FetchProductsResponse>(
+        paginatedQueryKey,
+        (old) => {
+          if (!old) return old;
+          return {
+            ...old,
+            products: old.products.filter((product) => product.id !== id),
+            total: old.total - 1,
+          };
+        }
+      );
+
+      // Update all products
+      queryClient.setQueryData<FetchProductsResponse>(
+        allProductsQueryKey,
+        (old) => {
+          if (!old) return old;
+          return {
+            ...old,
+            products: old.products.filter((product) => product.id !== id),
+            total: old.total - 1,
+          };
+        }
+      );
+    },
+    onSuccess: () => {
+      message.success("Product deleted successfully!");
+    },
+    onError: (error: Error) => {
+      message.error("Failed to delete product. Please try again.");
+      console.error("Delete error:", error);
+    },
   });
 
   const products = data?.products || [];
@@ -56,22 +102,33 @@ const Products = () => {
     { All: 0, InStock: 0, LowStock: 0, OutOfStock: 0 }
   );
 
-  // Handle view (navigate to details page)
   const handleView = (id: string) => {
     navigate(`/product/${id}`);
   };
 
-  // Handle edit (placeholder for now)
+  // Handle edit
   const handleEdit = (product: Product) => {
-    message.info(`Edit functionality for ${product.title} will be implemented later.`);
+    message.info(
+      `Edit functionality for ${product.title} will be implemented later.`
+    );
   };
 
-  // Handle delete (placeholder for now)
+  // Handle delete with confirmation
+  // Handle delete with confirmation
   const handleDelete = (id: number) => {
-    message.info(`Delete functionality for product ID ${id} will be implemented later.`);
+    Modal.confirm({
+      title: "Are you sure you want to delete this product?",
+      content: "This action cannot be undone.",
+      okText: "Yes, Delete",
+      okType: "danger",
+      cancelText: "No",
+      onOk: () => {
+        deleteMutation.mutate(id);
+      },
+    });
   };
 
-  // Handle new product (placeholder for now)
+  // Handle new product
   const handleNewProduct = () => {
     message.info("Create product functionality will be implemented later.");
   };
@@ -114,7 +171,11 @@ const Products = () => {
 
         {/* Products Table */}
         <Table
-          columns={productTableColumns({ handleView, handleEdit, handleDelete })}
+          columns={productTableColumns({
+            handleView,
+            handleEdit,
+            handleDelete,
+          })}
           dataSource={products}
           rowKey="id"
           pagination={{

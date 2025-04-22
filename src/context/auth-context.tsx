@@ -83,7 +83,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       return response.json();
     },
     onSuccess: (data) => {
-      console.log("auth-context.tsx", data);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       setUser(data.user);
