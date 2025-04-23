@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface AuthUser {
   id: number;
@@ -32,6 +32,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<AuthUser | null>(null);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const location = useLocation();
 
   const { data: userData, isLoading } = useQuery({
     queryKey: ["authUser"],
@@ -87,7 +88,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       localStorage.setItem("refreshToken", data.refreshToken);
       setUser(data.user);
       queryClient.setQueryData(["authUser"], data.user);
-      navigate("/");
+      const redirectTo = location.state?.from || "/";
+      navigate(redirectTo, { replace: true });
     },
   });
 
