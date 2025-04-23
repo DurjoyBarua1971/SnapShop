@@ -4,6 +4,7 @@ import { fetchProductById } from "../api/products";
 import { Button, Card, Rate, Carousel, Tag, message } from "antd";
 import { Product } from "../types/product";
 import Loader from "../components/Loader";
+import BackButton from "../components/BackButton";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,15 +59,8 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-poppins">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate("/product")}
-          className="text-gray-600 border-gray-300"
-        >
-          Back
-        </Button>
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
+        <BackButton />
         {/* Main Product Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Product Image */}

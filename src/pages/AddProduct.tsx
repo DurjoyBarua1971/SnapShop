@@ -17,6 +17,7 @@ import {
 } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { AddProductParams } from "../types/product";
+import BackButton from "../components/BackButton";
 
 const { Panel } = Collapse;
 
@@ -81,15 +82,8 @@ const AddProduct = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 !font-poppins">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate("/product")}
-          className="text-gray-600 border-gray-300 !font-poppins"
-        >
-          Back
-        </Button>
-      </div>
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
+        <BackButton />
         <h1 className="text-3xl !font-semibold text-gray-800 mb-6 ">
           Add New Product
         </h1>

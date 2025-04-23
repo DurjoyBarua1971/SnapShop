@@ -130,8 +130,8 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-poppins">
-      <BackButton />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
+        <BackButton />
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Products</h1>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <StockStatusTabs

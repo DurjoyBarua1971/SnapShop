@@ -5,6 +5,7 @@ import { PrinterOutlined, EditOutlined } from "@ant-design/icons";
 import orderDetailsData from "../data/orderDetailsData.json";
 import Loader from "../components/Loader";
 import moment from "moment";
+import BackButton from "../components/BackButton";
 
 interface Product {
   name: string;
@@ -107,16 +108,9 @@ const OrderDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 container">
-      <div className="sm:ml-4">
-        <Button
-          onClick={() => navigate(-1)}
-          className="text-gray-600 border-gray-300 !font-poppins"
-        >
-          Back
-        </Button>
-      </div>
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
+        <BackButton />
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
@@ -199,18 +193,34 @@ const OrderDetails = () => {
                   { label: "Shipping", value: order.details.shipping },
                   { label: "Discount", value: order.details.discount },
                   { label: "Taxes", value: order.details.taxes },
+                  { label: "Total", value: order.details.total },
                 ].map((item, index) => (
-                  <div key={index} className="flex justify-between">
-                    <p className="text-gray-600">{item.label}</p>
-                    <p className="text-gray-800">${item.value.toFixed(2)}</p>
+                  <div
+                    key={index}
+                    className={`flex justify-between ${
+                      index === 4 ? "border-t pt-2" : ""
+                    }`}
+                  >
+                    <p
+                      className={`${
+                        index === 4
+                          ? "text-gray-800 font-semibold"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {item.label}
+                    </p>
+                    <p
+                      className={`${
+                        index === 4
+                          ? "text-gray-800 font-semibold"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      ${item.value.toFixed(2)}
+                    </p>
                   </div>
                 ))}
-                <div className="flex justify-between border-t pt-2">
-                  <p className="text-gray-800 font-semibold">Total</p>
-                  <p className="text-gray-800 font-semibold">
-                    ${order.details.total.toFixed(2)}
-                  </p>
-                </div>
               </div>
             </Card>
 

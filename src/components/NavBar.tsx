@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200 font-poppins">
-      <div className="container  mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="text-xl font-semibold text-gray-800">
             SnapShop
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
             {user ? (
               <button
                 onClick={logout}
-                className="text-sm font-medium px-3 py-2 text-gray-700 hover:text-red-600 transition"
+                className="!text-sm font-medium px-3 py-2 !text-gray-700 hover:!text-red-600 transition cursor-pointer"
               >
                 Logout
               </button>
@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
                   logout();
                   toggleMobileMenu();
                 }}
-                className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-100 rounded-md"
+                className="block w-full text-left px-3 py-2 !text-xm font-medium text-gray-700 hover:!text-red-600 hover:bg-gray-100 rounded-md"
               >
                 Logout
               </button>
