@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200 font-poppins">
+    <nav className="bg-white shadow-sm border-b border-gray-200 font-poppins sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="text-xl font-semibold text-gray-800">

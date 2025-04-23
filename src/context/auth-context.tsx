@@ -43,7 +43,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-        //credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to fetch user data");
@@ -51,6 +50,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       return response.json();
     },
     retry: false,
+    staleTime: 2 * 60 * 60 * 1000, // 2 hours in milliseconds
     enabled: !!localStorage.getItem("accessToken"),
   });
 

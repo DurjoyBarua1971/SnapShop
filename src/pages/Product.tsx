@@ -131,27 +131,24 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-gray-50 font-poppins">
       <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
-        <BackButton />
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Products</h1>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <StockStatusTabs
-            activeTab={stockStatus}
-            counts={counts}
-            onChange={setStockStatus}
-          />
-          <SearchBar
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search by name or description..."
-          />
-          <Button
-            type="primary"
-            className="!bg-green-600 hover:!bg-green-700"
-            onClick={handleNewProduct}
-          >
-            + New Product
+        <div className="flex justify-between">
+          <BackButton />
+          <Button className="!font-poppins" onClick={handleNewProduct}>
+            ➕ New Product
           </Button>
         </div>
+        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Products</h1>
+
+        <StockStatusTabs
+          activeTab={stockStatus}
+          counts={counts}
+          onChange={setStockStatus}
+        />
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search by name or description..."
+        />
 
         <Table
           columns={productTableColumns({
