@@ -13,6 +13,7 @@ import Product from "./pages/Product";
 import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+import Discount from "./pages/Discount";
 
 const router = createBrowserRouter([
   {
@@ -99,7 +100,15 @@ const router = createBrowserRouter([
             <EditProduct />
           </ProtectedRoute>
         ),
-      }
+      },
+      {
+        path: "discount",
+        element: (
+          <ProtectedRoute>
+            <Discount />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

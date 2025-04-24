@@ -133,8 +133,11 @@ const Products = () => {
       <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
         <div className="flex justify-between">
           <BackButton />
-          <Button className="!font-poppins" onClick={handleNewProduct}>
-            ➕ New Product
+          <Button
+            className="!bg-green-600 !text-white !font-poppins hover:!bg-green-700"
+            onClick={handleNewProduct}
+          >
+            Create Product
           </Button>
         </div>
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Products</h1>

@@ -5,6 +5,8 @@ import { useAuth } from "../context/auth-context";
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathName = ["/", "/user", "/product", "/order", "/discount"];
+  const navLabel = ["Home", "Users", "Products", "Orders", "Discounts"];
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -17,8 +19,7 @@ const Navbar: React.FC = () => {
           </Link>
 
           <div className="hidden md:flex space-x-6 items-center">
-            {["/", "/user", "/product", "/order"].map((path, i) => {
-              const labels = ["Home", "Users", "Products", "Orders"];
+            {pathName.map((path, i) => {              
               return (
                 <NavLink
                   key={path}
@@ -31,7 +32,7 @@ const Navbar: React.FC = () => {
                     }`
                   }
                 >
-                  {labels[i]}
+                  {navLabel[i]}
                 </NavLink>
               );
             })}
