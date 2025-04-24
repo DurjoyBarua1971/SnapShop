@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
           </Link>
 
           <div className="hidden md:flex space-x-6 items-center">
-            {pathName.map((path, i) => {              
+            {pathName.map((path, i) => {
               return (
                 <NavLink
                   key={path}
@@ -90,8 +90,7 @@ const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100">
           <div className="px-4 pt-2 pb-2 space-y-2">
-            {["/", "/user", "/product", "/order"].map((path, i) => {
-              const labels = ["Home", "Users", "Products", "Orders"];
+            {pathName.map((path, i) => {
               return (
                 <NavLink
                   key={path}
@@ -105,7 +104,7 @@ const Navbar: React.FC = () => {
                     }`
                   }
                 >
-                  {labels[i]}
+                  {navLabel[i]}
                 </NavLink>
               );
             })}
