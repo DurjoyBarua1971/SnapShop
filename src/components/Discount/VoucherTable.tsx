@@ -1,5 +1,4 @@
-import { Table, Tag, Space, Popconfirm, Button } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table } from "antd";
 import Loader from "../Loader";
 import { Voucher } from "../../types/voucher";
 import VoucherModal from "./VoucherModal";

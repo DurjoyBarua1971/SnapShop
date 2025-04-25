@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../api/products";
 import { Button, Card, Rate, Carousel, Tag, message } from "antd";
@@ -8,7 +8,6 @@ import BackButton from "../components/BackButton";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
 
   // Fetch product by ID
   const { data: product, isLoading } = useQuery<Product>({
