@@ -129,9 +129,9 @@ const EditProduct = () => {
 
   return (
     <div className="min-h-screen !bg-gray-50 !font-poppins">
-      <div className="container mx-auto sm:px-2 lg:px-16 py-6 space-y-8">
+      <div className="container mx-auto sm:px-2 lg:px-16 space-y-8">
         <BackButton />
-        <div className="mx-auto py-6">
+        <div className="mx-auto">
           <h1 className="text-3xl !font-semibold !text-gray-800 !mb-6">
             Edit Product
           </h1>
