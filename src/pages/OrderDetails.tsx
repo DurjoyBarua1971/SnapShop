@@ -131,7 +131,7 @@ const OrderDetails = () => {
                 {order.status}
               </Tag>
             </h1>
-            <p className="text-gray-500 mt-1 !mb-0 !font-poppins">
+            <p className="text-gray-500 mt-1 sm:!mb-0 !font-poppins">
               {moment(order.date).format("DD MMM YYYY h:mm a")}
             </p>
           </div>
