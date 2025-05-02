@@ -128,14 +128,7 @@ const EditProduct = () => {
 
   return (
     <div className="min-h-screen !bg-gray-50 !font-poppins">
-      <div className="sm:!ml-4">
-        <Button
-          onClick={() => navigate("/product")}
-          className="!text-gray-600 !border-gray-300 !font-poppins"
-        >
-          Back
-        </Button>
-      </div>
+      <BackButton />
       <div className="max-w-3xl mx-auto px-4 sm:!px-6 lg:!px-8 py-6">
         <h1 className="text-3xl !font-semibold !text-gray-800 !mb-6">
           Edit Product
