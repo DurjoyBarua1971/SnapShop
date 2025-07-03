@@ -41,7 +41,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem(
+            "accessTokenSnapShopAdminPanel"
+          )}`,
         },
       });
       if (!response.ok) {
@@ -51,7 +53,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     },
     retry: false,
     staleTime: 2 * 60 * 60 * 1000, // 2 hours in milliseconds
-    enabled: !!localStorage.getItem("accessToken"),
+    enabled: !!localStorage.getItem("accessTokenSnapShopAdminPanel"),
   });
 
   useEffect(() => {
@@ -84,7 +86,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       return response.json();
     },
     onSuccess: (data) => {
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem(
+        "accessTokenSnapShopAdminPanel",
+        data.accessToken
+      );
       localStorage.setItem("refreshToken", data.refreshToken);
       setUser(data.user);
       queryClient.setQueryData(["authUser"], data.user);
@@ -95,7 +100,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessTokenSnapShopAdminPanel");
     localStorage.removeItem("refreshToken");
     queryClient.removeQueries({ queryKey: ["authUser"] });
     navigate("/login");

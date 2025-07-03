@@ -35,7 +35,6 @@ const Login = () => {
   const onSubmit = async (data: LoginForm) => {
     try {
       await login(data.username, data.password);
-      navigate("/");
     } catch (error) {
       message.error("Login failed. Please check your credentials.");
       console.error("Login failed", error);
@@ -152,3 +151,4 @@ const Login = () => {
 };
 
 export default Login;
+  
