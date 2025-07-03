@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { useAuth } from "../context/auth-context";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import InfoIcon from "../assets/icons8-info.svg";
 import LoginImage from "../assets/login.avif";
 import { message } from "antd";
@@ -21,7 +21,6 @@ const schema = yup
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const {
     register,
